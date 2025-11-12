@@ -1,0 +1,117 @@
+.todo-container {
+    margin: 50px auto;
+    width: 600px;
+
+}
+
+.todo-title {
+    font-size: 35px;
+    text-align: center;
+    margin: 15px 0;
+    font-weight: 600;
+}
+
+.todo-new {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+
+}
+
+.todo-new input {
+    width: 600px;
+    border-radius: 3px;
+    border: none;
+}
+
+.todo-new input::placeholder {
+    font-size: 15px;
+    padding-left: 10px;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+.todo-new button {
+    padding: 10px;
+    cursor: pointer;
+    color: white;
+    background-color: rgb(96, 102, 209);
+    border: none;
+    border-radius: 3px;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 600;
+    box-shadow: rgb(180, 213, 226);
+}
+
+.todo-data {
+    margin-top: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.todo-item {
+    background-color: rgb(90, 40, 40);
+    border: none;
+    border-radius: 3px;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+
+}
+
+.todo-item button {
+
+    background-color: red;
+    border: none;
+    border-radius: 3px;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.todo-image {
+    margin: 10px auto;
+    display: flex;
+    justify-content: center;
+}
+
+.logo {
+    height: 6em;
+    padding: 1.5em;
+    will-change: filter;
+    transition: filter 300ms;
+
+}
+
+.logo:hover {
+    filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+    filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .logo {
+        animation: logo-spin infinite 20s linear;
+    }
+}

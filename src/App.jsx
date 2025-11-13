@@ -6,14 +6,14 @@ import "./index.css";
 import { useState } from "react";
 const App = () => {
   const [toDoList, setToDoList] = useState([
-    {
-      id: 1,
-      name: "Learning React"
-    },
-    {
-      id: 2,
-      name: "Learning React 2"
-    },
+    // {
+    //   id: 1,
+    //   name: "Learning React"
+    // },
+    // {
+    //   id: 2,
+    //   name: "Learning React 2"
+    // },
   ]);
   const randomIntFromInterval = (min, max) => { // min and max included 
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -28,19 +28,31 @@ const App = () => {
     } else {
       alert('Please enter your task');
     }
-
   }
-
-
-
+  const handleDeleteClick = (id) => {
+    console.log(id);
+    // toDoList.remove(id);
+    const newTodoList = toDoList.filter((item => item.id !== id));
+    setToDoList(newTodoList);
+  }
   return (
     <div className="todo-container">
       <div className="todo-title">
         <h2>Todo List</h2>
       </div>
       <TodoNew addNewTodo={addNewTodo} />
-      <TodoData toDoList={toDoList} />
-      <TodoImage />
+
+      {toDoList.length > 0 ?
+        <TodoData toDoList={toDoList} handleDeleteClick={handleDeleteClick} />
+        :
+        <TodoImage />
+      }
+
+      {/* {toDoList.length > 0 &&
+        <TodoData toDoList={toDoList} />}
+      {toDoList.length === 0 &&
+        <TodoImage />
+      } */}
     </div>
   )
 }

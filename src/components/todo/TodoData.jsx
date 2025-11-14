@@ -1,4 +1,4 @@
-import './todo.css';
+import '../../styles/todo.css';
 const TodoData = (props) => {
     const { toDoList, handleDeleteClick } = props;
     const handleDelete = (id) => {

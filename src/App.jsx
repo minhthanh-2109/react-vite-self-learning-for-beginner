@@ -1,59 +1,16 @@
-import TodoNew from "./components/todo/TodoNew";
-import TodoData from "./components/todo/TodoData";
-import TodoImage from "./components/todo/TodoImage";
-import "./components/todo/todo.css";
-import "./index.css";
-import { useState } from "react";
+import Header from "./components/layout/header";
+import Footer from "./components/layout/footer";
+import { Outlet } from "react-router-dom";
+
 const App = () => {
-  const [toDoList, setToDoList] = useState([
-    // {
-    //   id: 1,
-    //   name: "Learning React"
-    // },
-    // {
-    //   id: 2,
-    //   name: "Learning React 2"
-    // },
-  ]);
-  const randomIntFromInterval = (min, max) => { // min and max included 
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
-  const addNewTodo = (name) => {
-    const newItem = {
-      id: randomIntFromInterval(1, 10000000),
-      name: name
-    }
-    if (newItem.name !== "") {
-      setToDoList([...toDoList, newItem])
-    } else {
-      alert('Please enter your task');
-    }
-  }
-  const handleDeleteClick = (id) => {
-    console.log(id);
-    // toDoList.remove(id);
-    const newTodoList = toDoList.filter((item => item.id !== id));
-    setToDoList(newTodoList);
-  }
+
   return (
-    <div className="todo-container">
-      <div className="todo-title">
-        <h2>Todo List</h2>
-      </div>
-      <TodoNew addNewTodo={addNewTodo} />
+    <>
+      <Header />
+      <Outlet />
+      <Footer />
+    </>
 
-      {toDoList.length > 0 ?
-        <TodoData toDoList={toDoList} handleDeleteClick={handleDeleteClick} />
-        :
-        <TodoImage />
-      }
-
-      {/* {toDoList.length > 0 &&
-        <TodoData toDoList={toDoList} />}
-      {toDoList.length === 0 &&
-        <TodoImage />
-      } */}
-    </div>
   )
 }
 

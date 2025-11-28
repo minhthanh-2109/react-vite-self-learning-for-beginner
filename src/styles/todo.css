@@ -8,6 +8,7 @@
     font-size: 35px;
     text-align: center;
     margin: 15px 0;
+    color: black;
     font-weight: 600;
 }
 
@@ -22,14 +23,24 @@
 .todo-new input {
     width: 600px;
     border-radius: 3px;
+    background-color: #283032aa;
+    box-shadow: #283032aa;
     border: none;
 }
 
 .todo-new input::placeholder {
     font-size: 15px;
     padding-left: 10px;
+    color: white;
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
+
+/* .todo-new input::value {
+    font-size: 15px;
+    padding-left: 10px;
+    color: white;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+} */
 
 .todo-new button {
     padding: 10px;

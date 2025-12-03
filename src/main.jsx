@@ -13,6 +13,9 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import { AuthWrapper } from './components/context/auth.context.jsx';
+import PrivateRoute from './components/private_route/private.route.jsx';
+import 'nprogress/nprogress.css'
 
 const router = createBrowserRouter([
   {
@@ -30,7 +33,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/books",
-        element: <BooksPage />
+        element: <PrivateRoute> <BooksPage /> </PrivateRoute>
       },
 
     ]
@@ -49,6 +52,8 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
   // {/* <App /> */}
-  <RouterProvider router={router} />
+  <AuthWrapper>
+    <RouterProvider router={router} />
+  </AuthWrapper>
   //{/* </React.StrictMode>, */}
 )

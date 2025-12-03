@@ -3,12 +3,19 @@ import { Button, Form, Input, Row, Col, Divider, message, notification } from 'a
 import { useForm } from 'antd/es/form/Form';
 import { useNavigate, Link } from 'react-router-dom';
 import { logInAPI } from '../services/api.service';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../components/context/auth.context';
 
 const LoginPage = () => {
     const [form] = useForm();
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    const { setUser } = useContext(AuthContext);
+
+    const submitFormWithEnter = (event) => {
+        if (event.key === 'Enter');
+        form.submit();
+    }
 
     const onFinish = async (values) => {
         console.log('check values >>>', values);
@@ -16,6 +23,8 @@ const LoginPage = () => {
         const res = await logInAPI(values.email, values.password);
         if (res.data) {
             message.success("Login successfully");
+            localStorage.setItem('access_token', res.data.access_token);
+            setUser(res.data.user);
             navigate('/');
 
         } else {
@@ -71,7 +80,7 @@ const LoginPage = () => {
                             name="password"
                             rules={[{ required: true, message: 'Please input your password!' }]}
                         >
-                            <Input.Password />
+                            <Input.Password onKeyDown={(event) => submitFormWithEnter(event.key)} />
                         </Form.Item>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Button

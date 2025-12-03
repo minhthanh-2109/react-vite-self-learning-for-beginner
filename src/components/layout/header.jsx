@@ -1,8 +1,43 @@
-import { Menu } from "antd";
-import { Link } from "react-router-dom";
-import { UserOutlined, HomeOutlined, BookOutlined, SettingOutlined } from '@ant-design/icons';
-import { useState } from "react";
+import { Menu, message } from "antd";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { UserOutlined, HomeOutlined, BookOutlined, LoginOutlined, LogoutOutlined } from '@ant-design/icons';
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../context/auth.context";
+import { logOutAPI } from "../../services/api.service";
 const Header = () => {
+    const { user, setUser } = useContext(AuthContext);
+    const [current, setCurrent] = useState('');
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        console.log(location);
+        if (location && location.pathname) {
+            const allRoutes = ['users', 'books'];
+            const currentRoute = allRoutes.find(items => `/${items}` === location.pathname);
+            if (currentRoute) {
+                setCurrent(currentRoute);
+            } else {
+                setCurrent('home');
+            }
+        }
+    }, [location])
+    const handleLogOut = async () => {
+        const res = await logOutAPI();
+        if (res.data) {
+            localStorage.removeItem("access_token");
+            setUser({
+                email: "",
+                phone: "",
+                fullName: "",
+                role: "",
+                avatar: "",
+                id: ""
+            });
+            message.success('Log out successfully');
+            navigate("/");
+        }
+    }
     const items = [
         {
             label: <Link to={"/"}>Home</Link >,
@@ -19,23 +54,27 @@ const Header = () => {
             key: 'books',
             icon: <BookOutlined />,
         },
-        {
-            label: 'Setting',
-            key: 'setting',
-            icon: <SettingOutlined />,
+        ...(!user.id ? [{
+            label: <Link to={"/Login"}>Login</Link>,
+            key: 'login',
+            icon: <LoginOutlined />,
+        }
+        ] : []),
+        ...(user.id ? [{
+            label: `Welcome ${user.fullName}`,
+            key: 'loginUser',
+            icon: <UserOutlined />,
             children: [
                 {
-                    label: <Link to={'/login'} >Login</Link>,
-                    key: 'logIn'
-                },
-                {
-                    label: 'Sign out',
-                    key: 'signOut'
+                    label: <span onClick={() => handleLogOut()}>Sign out</span>,
+                    key: 'signOut',
+                    icon: <LogoutOutlined />
                 },
             ]
         }
+        ] : []),
     ];
-    const [current, setCurrent] = useState('mail');
+
     const onClick = (e) => {
         console.log('click ', e);
         setCurrent(e.key);

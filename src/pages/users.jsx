@@ -24,6 +24,7 @@ const UsersPage = () => {
             setPageSize(res.data.meta.pageSize);
             setTotal(res.data.meta.total);
         }
+        console.log({ current, pageSize, total, userData })
     }
 
     return (
